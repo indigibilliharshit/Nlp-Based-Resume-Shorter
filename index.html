@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATS Resume Scanner - Indigibilli Harshit Team</title>
+    <title>Multi-Resume ATS Scanner - Indigibilli Harshit Team</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -291,6 +291,69 @@
             color: #6b7280;
         }
 
+        .uploaded-files {
+            margin-top: 16px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover {
+            background: #f1f5f9;
+            border-color: #6366f1;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .file-info i {
+            color: #6366f1;
+        }
+
+        .file-name {
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .file-size {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .remove-file {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .remove-file:hover {
+            background: #dc2626;
+            transform: scale(1.1);
+        }
+
         .analyze-btn {
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
             color: white;
@@ -361,159 +424,197 @@
             }
         }
 
-        .score-section {
+        .results-header {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             border-radius: 24px;
-            padding: 48px;
+            padding: 32px;
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 32px;
             border: 1px solid #e2e8f0;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
         }
 
-        .score-circle {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: conic-gradient(
-                #10b981 0deg, 
-                #10b981 calc(var(--score) * 3.6deg), 
-                #f3f4f6 calc(var(--score) * 3.6deg)
-            );
+        .results-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 32px;
-            position: relative;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            gap: 16px;
         }
 
-        .score-circle::before {
-            content: '';
-            width: 160px;
-            height: 160px;
-            background: #ffffff;
-            border-radius: 50%;
-            position: absolute;
-            box-shadow: inset 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .score-text {
-            position: relative;
-            font-size: 3rem;
-            font-weight: 800;
-            color: #1e293b;
-            z-index: 2;
-        }
-
-        .score-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #374151;
-            margin-bottom: 16px;
-        }
-
-        .score-description {
+        .results-subtitle {
             color: #6b7280;
             font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
         }
 
-        .analysis-grid {
+        .candidates-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 24px;
-            margin-top: 32px;
+            margin-bottom: 32px;
         }
 
-        .analysis-card {
+        .candidate-card {
             background: #ffffff;
-            padding: 32px;
             border-radius: 20px;
+            padding: 32px;
             border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .analysis-card::before {
+        .candidate-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            height: 6px;
+            background: linear-gradient(90deg, var(--rank-color), var(--rank-color-light));
         }
 
-        .analysis-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        .candidate-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
 
-        .analysis-card h4 {
-            color: #1e293b;
-            margin-bottom: 24px;
-            font-size: 1.25rem;
-            font-weight: 700;
+        .candidate-header {
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: space-between;
+            margin-bottom: 24px;
         }
 
-        .analysis-card h4 i {
+        .candidate-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .rank-badge {
+            background: var(--rank-color);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 800;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .candidate-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .score-display {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .score-circle-small {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--rank-color) 0deg, 
+                var(--rank-color) calc(var(--score) * 3.6deg), 
+                #f3f4f6 calc(var(--score) * 3.6deg)
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .score-circle-small::before {
+            content: '';
+            width: 60px;
+            height: 60px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .score-text-small {
+            position: relative;
+            font-size: 1rem;
+            font-weight: 800;
+            color: #1e293b;
+            z-index: 2;
+        }
+
+        .score-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .candidate-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .detail-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .detail-card h5 {
+            color: #374151;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-card h5 i {
             color: #6366f1;
         }
 
-        .match-list {
-            list-style: none;
-        }
-
-        .match-list li {
-            padding: 12px 0;
-            border-bottom: 1px solid #f1f5f9;
+        .skill-tags {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
-        .match-list li:last-child {
-            border-bottom: none;
-        }
-
-        .match-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        .match-percentage {
-            background: #10b981;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
+        .skill-tag {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 4px 12px;
+            border-radius: 16px;
             font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-weight: 500;
         }
 
-        .low-match {
-            background: #ef4444;
+        .keyword-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
-        .medium-match {
-            background: #f59e0b;
-        }
-
-        .recommendation-item {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            padding: 16px;
+        .keyword-item {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 2px 8px;
             border-radius: 12px;
-            margin-bottom: 12px;
-            border-left: 4px solid #f59e0b;
+            font-size: 11px;
             font-weight: 500;
         }
 
@@ -529,6 +630,81 @@
 
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f3f4f6;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--rank-color);
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .comparison-section {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid #e2e8f0;
+            margin-top: 32px;
+        }
+
+        .comparison-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .comparison-chart {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .chart-item {
+            text-align: center;
+        }
+
+        .chart-label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 12px;
+        }
+
+        .chart-bar {
+            height: 200px;
+            background: #f8fafc;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .chart-fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, #6366f1, #8b5cf6);
+            border-radius: 8px 8px 0 0;
+            transition: height 1s ease;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 8px;
+            color: white;
+            font-weight: 600;
         }
 
         /* Responsive Design */
@@ -570,34 +746,19 @@
                 padding: 24px;
             }
 
-            .score-circle {
-                width: 160px;
-                height: 160px;
+            .candidate-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
             }
 
-            .score-circle::before {
-                width: 130px;
-                height: 130px;
+            .score-display {
+                align-self: flex-end;
             }
 
-            .score-text {
-                font-size: 2.5rem;
-            }
-
-            .analysis-grid {
+            .candidate-details {
                 grid-template-columns: 1fr;
             }
-        }
-
-        /* Success animations */
-        .success-pulse {
-            animation: successPulse 2s infinite;
-        }
-
-        @keyframes successPulse {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
     </style>
 </head>
@@ -605,24 +766,24 @@
     <!-- Top Watermark -->
     <div class="watermark">
         <i class="fas fa-crown"></i>
-        Powered by Indigibilli Harshit Team - Advanced ATS Technology
+        Powered by Indigibilli Harshit Team - Advanced Multi-Resume ATS Technology
         <i class="fas fa-crown"></i>
     </div>
 
     <div class="container">
         <div class="header">
             <div class="header-content">
-                <h1><i class="fas fa-bullseye"></i> ATS Resume Scanner</h1>
-                <p class="subtitle">Advanced AI-Powered Resume Analysis & Job Matching System</p>
+                <h1><i class="fas fa-users"></i> Multi-Resume ATS Scanner</h1>
+                <p class="subtitle">Compare Multiple Candidates Against Job Requirements with AI-Powered Analysis</p>
                 <div class="features">
                     <div class="feature-badge">
-                        <i class="fas fa-brain"></i> NLP Processing
+                        <i class="fas fa-layer-group"></i> Bulk Processing
                     </div>
                     <div class="feature-badge">
-                        <i class="fas fa-chart-line"></i> Smart Analytics
+                        <i class="fas fa-sort-amount-down"></i> Smart Ranking
                     </div>
                     <div class="feature-badge">
-                        <i class="fas fa-file-pdf"></i> Multi-Format Support
+                        <i class="fas fa-chart-bar"></i> Comparative Analysis
                     </div>
                     <div class="feature-badge">
                         <i class="fas fa-lightning-bolt"></i> Instant Results
@@ -650,47 +811,52 @@
                 </div>
 
                 <div class="input-group">
-                    <h3><i class="fas fa-user-tie"></i> Resume Analysis</h3>
+                    <h3><i class="fas fa-users"></i> Multiple Resume Upload</h3>
                     <div class="form-group">
                         <label>
-                            <i class="fas fa-cloud-upload-alt"></i> Upload Resume File
+                            <i class="fas fa-cloud-upload-alt"></i> Upload Multiple Resume Files
                         </label>
                         <div class="file-upload">
-                            <input type="file" id="resumeFile" accept=".pdf,.doc,.docx,.txt">
-                            <label for="resumeFile" class="file-upload-label">
+                            <input type="file" id="resumeFiles" accept=".pdf,.doc,.docx,.txt" multiple>
+                            <label for="resumeFiles" class="file-upload-label">
                                 <i class="fas fa-file-upload"></i>
-                                <div class="upload-text">Drop your resume here or click to browse</div>
-                                <div class="upload-subtext">Supports PDF, Word, and Text files</div>
+                                <div class="upload-text">Drop multiple resumes here or click to browse</div>
+                                <div class="upload-subtext">Supports PDF, Word, and Text files (Multiple selection)</div>
                             </label>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="resumeText">
-                            <i class="fas fa-keyboard"></i> Or Paste Resume Content
-                        </label>
-                        <textarea id="resumeText" placeholder="Copy and paste your complete resume content here as an alternative to file upload..."></textarea>
+                        <div class="uploaded-files" id="uploadedFiles"></div>
                     </div>
                 </div>
             </div>
 
-            <button class="analyze-btn" onclick="analyzeResume()">
+            <button class="analyze-btn" onclick="analyzeMultipleResumes()">
                 <i class="fas fa-search"></i>
-                <span>Analyze ATS Compatibility</span>
+                <span>Analyze & Rank All Resumes</span>
             </button>
 
             <div class="results" id="results">
-                <div class="score-section">
-                    <div class="score-circle" id="scoreCircle">
-                        <span class="score-text" id="scoreText">0%</span>
-                    </div>
-                    <h3 class="score-title">ATS Compatibility Score</h3>
-                    <p class="score-description" id="scoreDescription">
-                        Your resume's compatibility with the job requirements based on advanced NLP analysis
+                <div class="results-header">
+                    <h2 class="results-title">
+                        <i class="fas fa-trophy"></i>
+                        Candidate Ranking Results
+                    </h2>
+                    <p class="results-subtitle">
+                        Resumes ranked by ATS compatibility score - Best matches first
                     </p>
                 </div>
 
-                <div class="analysis-grid" id="analysisGrid">
-                    <!-- Analysis results will be populated here -->
+                <div class="candidates-grid" id="candidatesGrid">
+                    <!-- Candidate results will be populated here -->
+                </div>
+
+                <div class="comparison-section">
+                    <h3 class="comparison-title">
+                        <i class="fas fa-chart-line"></i>
+                        Comparative Analysis
+                    </h3>
+                    <div class="comparison-chart" id="comparisonChart">
+                        <!-- Comparison charts will be populated here -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -699,7 +865,7 @@
     <!-- Bottom Watermark -->
     <div class="watermark bottom">
         <i class="fas fa-code"></i>
-        © 2024 Indigibilli Harshit Team - Professional Resume Analysis Solutions
+        © 2024 Indigibilli Harshit Team - Professional Multi-Resume Analysis Solutions
         <i class="fas fa-code"></i>
     </div>
 
@@ -708,6 +874,8 @@
     <script>
         // Set PDF.js worker
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+
+        let uploadedResumes = [];
 
         // File parsing functions
         async function parsePDF(file) {
@@ -725,7 +893,7 @@
                 
                 return text.trim();
             } catch (error) {
-                throw new Error('Failed to parse PDF file. Please try pasting the text directly.');
+                throw new Error(`Failed to parse PDF file: ${file.name}`);
             }
         }
 
@@ -735,7 +903,7 @@
                 const result = await mammoth.extractRawText({ arrayBuffer });
                 return result.value;
             } catch (error) {
-                throw new Error('Failed to parse Word document. Please try pasting the text directly.');
+                throw new Error(`Failed to parse Word document: ${file.name}`);
             }
         }
 
@@ -743,7 +911,7 @@
             try {
                 return await file.text();
             } catch (error) {
-                throw new Error('Failed to read text file. Please try pasting the text directly.');
+                throw new Error(`Failed to read text file: ${file.name}`);
             }
         }
 
@@ -772,7 +940,6 @@
                 !/^\d+$/.test(word)
             );
 
-            // Count frequency
             const frequency = {};
             keywords.forEach(word => {
                 frequency[word] = (frequency[word] || 0) + 1;
@@ -819,18 +986,16 @@
 
             const textLower = text.toLowerCase();
             const foundSkills = [];
-            const skillsWithCategory = [];
 
             Object.entries(skillCategories).forEach(([category, skills]) => {
                 skills.forEach(skill => {
                     if (textLower.includes(skill.toLowerCase())) {
                         foundSkills.push(skill);
-                        skillsWithCategory.push({ skill, category });
                     }
                 });
             });
 
-            return { skills: foundSkills, categorized: skillsWithCategory };
+            return foundSkills;
         }
 
         function extractExperience(text) {
@@ -889,14 +1054,13 @@
                 education: 0.20
             };
 
-            // Skills matching with fuzzy logic
-            const jobSkills = jobData.skills.skills;
-            const resumeSkills = resumeData.skills.skills;
+            // Skills matching
+            const jobSkills = jobData.skills;
+            const resumeSkills = resumeData.skills;
             const skillMatches = jobSkills.filter(skill =>
                 resumeSkills.some(rSkill => 
                     rSkill.toLowerCase().includes(skill.toLowerCase()) ||
-                    skill.toLowerCase().includes(rSkill.toLowerCase()) ||
-                    levenshteinDistance(skill.toLowerCase(), rSkill.toLowerCase()) <= 2
+                    skill.toLowerCase().includes(rSkill.toLowerCase())
                 )
             );
             const skillsScore = jobSkills.length > 0 ? (skillMatches.length / jobSkills.length) * 100 : 50;
@@ -905,10 +1069,7 @@
             const jobKeywords = jobData.keywords.slice(0, 25);
             const resumeKeywords = resumeData.keywords;
             const keywordMatches = jobKeywords.filter(keyword =>
-                resumeKeywords.includes(keyword) ||
-                resumeKeywords.some(rKeyword => 
-                    levenshteinDistance(keyword, rKeyword) <= 1
-                )
+                resumeKeywords.includes(keyword)
             );
             const keywordScore = jobKeywords.length > 0 ? (keywordMatches.length / jobKeywords.length) * 100 : 50;
 
@@ -936,89 +1097,30 @@
                 matches: {
                     skills: skillMatches,
                     keywords: keywordMatches
-                },
-                details: {
-                    totalJobSkills: jobSkills.length,
-                    matchedSkills: skillMatches.length,
-                    totalKeywords: jobKeywords.length,
-                    matchedKeywords: keywordMatches.length,
-                    requiredExperience: jobData.experience,
-                    candidateExperience: resumeData.experience
                 }
             };
         }
 
-        // Levenshtein distance for fuzzy matching
-        function levenshteinDistance(str1, str2) {
-            const matrix = [];
-            for (let i = 0; i <= str2.length; i++) {
-                matrix[i] = [i];
-            }
-            for (let j = 0; j <= str1.length; j++) {
-                matrix[0][j] = j;
-            }
-            for (let i = 1; i <= str2.length; i++) {
-                for (let j = 1; j <= str1.length; j++) {
-                    if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
-                        matrix[i][j] = matrix[i - 1][j - 1];
-                    } else {
-                        matrix[i][j] = Math.min(
-                            matrix[i - 1][j - 1] + 1,
-                            matrix[i][j - 1] + 1,
-                            matrix[i - 1][j] + 1
-                        );
-                    }
-                }
-            }
-            return matrix[str2.length][str1.length];
-        }
-
-        async function analyzeResume() {
+        async function analyzeMultipleResumes() {
             const jobTitle = document.getElementById('jobTitle').value.trim();
             const jobDescription = document.getElementById('jobDescription').value.trim();
-            const resumeText = document.getElementById('resumeText').value.trim();
-            const resumeFile = document.getElementById('resumeFile').files[0];
 
             if (!jobTitle || !jobDescription) {
                 showNotification('Please enter both job title and description', 'error');
                 return;
             }
 
-            if (!resumeText && !resumeFile) {
-                showNotification('Please provide resume text or upload a resume file', 'error');
+            if (uploadedResumes.length === 0) {
+                showNotification('Please upload at least one resume file', 'error');
                 return;
             }
 
-            let resumeContent = resumeText;
             const analyzeBtn = document.querySelector('.analyze-btn');
             const originalBtnContent = analyzeBtn.innerHTML;
 
             try {
-                // Update button to show loading
-                analyzeBtn.innerHTML = '<div class="loading-spinner"></div><span>Processing...</span>';
+                analyzeBtn.innerHTML = '<div class="loading-spinner"></div><span>Processing Resumes...</span>';
                 analyzeBtn.disabled = true;
-
-                // Handle file upload
-                if (resumeFile && !resumeText) {
-                    const fileType = resumeFile.type;
-                    const fileName = resumeFile.name.toLowerCase();
-
-                    analyzeBtn.innerHTML = '<div class="loading-spinner"></div><span>Parsing File...</span>';
-
-                    if (fileType === 'application/pdf' || fileName.endsWith('.pdf')) {
-                        resumeContent = await parsePDF(resumeFile);
-                    } else if (fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-                               fileType === 'application/msword' ||
-                               fileName.endsWith('.docx') || fileName.endsWith('.doc')) {
-                        resumeContent = await parseDocx(resumeFile);
-                    } else if (fileType === 'text/plain' || fileName.endsWith('.txt')) {
-                        resumeContent = await parseTextFile(resumeFile);
-                    } else {
-                        throw new Error('Unsupported file type. Please use PDF, Word, or text files.');
-                    }
-                }
-
-                analyzeBtn.innerHTML = '<div class="loading-spinner"></div><span>Analyzing...</span>';
 
                 // Process job description
                 const jobData = {
@@ -1029,23 +1131,66 @@
                     education: extractEducation(jobDescription)
                 };
 
-                // Process resume
-                const resumeData = {
-                    keywords: extractKeywords(resumeContent),
-                    skills: extractSkills(resumeContent),
-                    experience: extractExperience(resumeContent),
-                    education: extractEducation(resumeContent)
-                };
+                const candidateResults = [];
 
-                // Calculate ATS score
-                const atsAnalysis = calculateATSScore(jobData, resumeData);
+                // Process each resume
+                for (let i = 0; i < uploadedResumes.length; i++) {
+                    const resume = uploadedResumes[i];
+                    
+                    analyzeBtn.innerHTML = `<div class="loading-spinner"></div><span>Processing ${resume.name} (${i + 1}/${uploadedResumes.length})</span>`;
 
-                // Display results with animation
-                setTimeout(() => {
-                    displayResults(atsAnalysis, jobData, resumeData);
-                    analyzeBtn.innerHTML = originalBtnContent;
-                    analyzeBtn.disabled = false;
-                }, 1000);
+                    try {
+                        let resumeContent = '';
+                        const fileType = resume.file.type;
+                        const fileName = resume.file.name.toLowerCase();
+
+                        if (fileType === 'application/pdf' || fileName.endsWith('.pdf')) {
+                            resumeContent = await parsePDF(resume.file);
+                        } else if (fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+                                   fileType === 'application/msword' ||
+                                   fileName.endsWith('.docx') || fileName.endsWith('.doc')) {
+                            resumeContent = await parseDocx(resume.file);
+                        } else if (fileType === 'text/plain' || fileName.endsWith('.txt')) {
+                            resumeContent = await parseTextFile(resume.file);
+                        }
+
+                        // Process resume
+                        const resumeData = {
+                            keywords: extractKeywords(resumeContent),
+                            skills: extractSkills(resumeContent),
+                            experience: extractExperience(resumeContent),
+                            education: extractEducation(resumeContent)
+                        };
+
+                        // Calculate ATS score
+                        const atsAnalysis = calculateATSScore(jobData, resumeData);
+
+                        candidateResults.push({
+                            name: resume.name,
+                            fileName: resume.file.name,
+                            analysis: atsAnalysis,
+                            resumeData: resumeData
+                        });
+
+                    } catch (error) {
+                        candidateResults.push({
+                            name: resume.name,
+                            fileName: resume.file.name,
+                            error: error.message,
+                            analysis: { total: 0, breakdown: {}, matches: {} },
+                            resumeData: { skills: [], keywords: [], experience: 0, education: { level: 0 } }
+                        });
+                    }
+                }
+
+                // Sort by ATS score (highest first)
+                candidateResults.sort((a, b) => b.analysis.total - a.analysis.total);
+
+                // Display results
+                displayMultipleResults(candidateResults, jobData);
+
+                analyzeBtn.innerHTML = originalBtnContent;
+                analyzeBtn.disabled = false;
 
             } catch (error) {
                 analyzeBtn.innerHTML = originalBtnContent;
@@ -1054,171 +1199,153 @@
             }
         }
 
-        function displayResults(analysis, jobData, resumeData) {
+        function displayMultipleResults(candidates, jobData) {
             const resultsDiv = document.getElementById('results');
-            const scoreText = document.getElementById('scoreText');
-            const scoreCircle = document.getElementById('scoreCircle');
-            const scoreDescription = document.getElementById('scoreDescription');
-            const analysisGrid = document.getElementById('analysisGrid');
+            const candidatesGrid = document.getElementById('candidatesGrid');
+            const comparisonChart = document.getElementById('comparisonChart');
 
-            // Update score display with animation
-            let currentScore = 0;
-            const targetScore = analysis.total;
-            const increment = targetScore / 50;
+            // Clear previous results
+            candidatesGrid.innerHTML = '';
+            comparisonChart.innerHTML = '';
 
-            const scoreAnimation = setInterval(() => {
-                currentScore += increment;
-                if (currentScore >= targetScore) {
-                    currentScore = targetScore;
-                    clearInterval(scoreAnimation);
-                    scoreCircle.classList.add('success-pulse');
-                }
+            // Generate candidate cards
+            candidates.forEach((candidate, index) => {
+                const rank = index + 1;
+                const rankColors = [
+                    { color: '#ffd700', light: '#fff9c4' }, // Gold
+                    { color: '#c0c0c0', light: '#f3f4f6' }, // Silver
+                    { color: '#cd7f32', light: '#fef3c7' }, // Bronze
+                    { color: '#6366f1', light: '#e0e7ff' }, // Default
+                ];
                 
-                scoreText.textContent = Math.round(currentScore) + '%';
-                scoreCircle.style.setProperty('--score', currentScore);
-                
-                // Update circle color based on score
-                let circleColor = currentScore >= 70 ? '#10b981' :
-                                currentScore >= 50 ? '#f59e0b' : '#ef4444';
-                
-                scoreCircle.style.background = `conic-gradient(${circleColor} 0deg, ${circleColor} calc(${currentScore} * 3.6deg), #f3f4f6 calc(${currentScore} * 3.6deg))`;
-            }, 20);
+                const colorIndex = Math.min(rank - 1, 3);
+                const rankColor = rankColors[colorIndex];
 
-            // Update score description
-            const getScoreDescription = (score) => {
-                if (score >= 80) return "Excellent match! Your resume is highly compatible with this job.";
-                if (score >= 70) return "Good match! Your resume aligns well with the job requirements.";
-                if (score >= 60) return "Moderate match. Consider optimizing your resume for better results.";
-                if (score >= 40) return "Fair match. Significant improvements needed for better compatibility.";
-                return "Low match. Your resume needs substantial optimization for this role.";
-            };
+                const candidateCard = document.createElement('div');
+                candidateCard.className = 'candidate-card';
+                candidateCard.style.setProperty('--rank-color', rankColor.color);
+                candidateCard.style.setProperty('--rank-color-light', rankColor.light);
+                candidateCard.style.setProperty('--score', candidate.analysis.total);
 
-            scoreDescription.textContent = getScoreDescription(analysis.total);
-
-            // Create detailed analysis cards
-            analysisGrid.innerHTML = `
-                <div class="analysis-card">
-                    <h4><i class="fas fa-chart-bar"></i> Detailed Score Breakdown</h4>
-                    <ul class="match-list">
-                        <li>
-                            <div class="match-item">
-                                <span><i class="fas fa-cogs"></i> Skills Compatibility</span>
-                                <span class="match-percentage ${getScoreClass(analysis.breakdown.skills)}">${analysis.breakdown.skills}%</span>
+                candidateCard.innerHTML = `
+                    <div class="candidate-header">
+                        <div class="candidate-info">
+                            <div class="rank-badge">${rank}</div>
+                            <div>
+                                <div class="candidate-name">${candidate.name}</div>
+                                <div style="color: #6b7280; font-size: 0.875rem;">${candidate.fileName}</div>
                             </div>
-                            <small style="color: #6b7280; margin-top: 4px; display: block;">
-                                ${analysis.details.matchedSkills}/${analysis.details.totalJobSkills} skills matched
-                            </small>
-                        </li>
-                        <li>
-                            <div class="match-item">
-                                <span><i class="fas fa-key"></i> Keywords Match</span>
-                                <span class="match-percentage ${getScoreClass(analysis.breakdown.keywords)}">${analysis.breakdown.keywords}%</span>
+                        </div>
+                        <div class="score-display">
+                            <div>
+                                <div class="score-label">ATS Score</div>
+                                <div class="score-circle-small">
+                                    <span class="score-text-small">${candidate.analysis.total}%</span>
+                                </div>
                             </div>
-                            <small style="color: #6b7280; margin-top: 4px; display: block;">
-                                ${analysis.details.matchedKeywords}/${analysis.details.totalKeywords} keywords found
-                            </small>
-                        </li>
-                        <li>
-                            <div class="match-item">
-                                <span><i class="fas fa-clock"></i> Experience Level</span>
-                                <span class="match-percentage ${getScoreClass(analysis.breakdown.experience)}">${analysis.breakdown.experience}%</span>
-                            </div>
-                            <small style="color: #6b7280; margin-top: 4px; display: block;">
-                                ${analysis.details.candidateExperience} years vs ${analysis.details.requiredExperience} required
-                            </small>
-                        </li>
-                        <li>
-                            <div class="match-item">
-                                <span><i class="fas fa-graduation-cap"></i> Education Match</span>
-                                <span class="match-percentage ${getScoreClass(analysis.breakdown.education)}">${analysis.breakdown.education}%</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="analysis-card">
-                    <h4><i class="fas fa-check-circle"></i> Matched Skills</h4>
-                    <ul class="match-list">
-                        ${analysis.matches.skills.slice(0, 8).map(skill => `
-                            <li><i class="fas fa-check" style="color: #10b981;"></i> ${skill}</li>
-                        `).join('')}
-                        ${analysis.matches.skills.length === 0 ? '<li><i class="fas fa-times" style="color: #ef4444;"></i> No direct skill matches found</li>' : ''}
-                        ${analysis.matches.skills.length > 8 ? `<li style="color: #6b7280; font-style: italic;">+${analysis.matches.skills.length - 8} more skills matched</li>` : ''}
-                    </ul>
-                </div>
-
-                <div class="analysis-card">
-                    <h4><i class="fas fa-search"></i> Matched Keywords</h4>
-                    <ul class="match-list">
-                        ${analysis.matches.keywords.slice(0, 8).map(keyword => `
-                            <li><i class="fas fa-tag" style="color: #6366f1;"></i> ${keyword}</li>
-                        `).join('')}
-                        ${analysis.matches.keywords.length === 0 ? '<li><i class="fas fa-times" style="color: #ef4444;"></i> No keyword matches found</li>' : ''}
-                        ${analysis.matches.keywords.length > 8 ? `<li style="color: #6b7280; font-style: italic;">+${analysis.matches.keywords.length - 8} more keywords matched</li>` : ''}
-                    </ul>
-                </div>
-
-                <div class="analysis-card">
-                    <h4><i class="fas fa-lightbulb"></i> Optimization Recommendations</h4>
-                    <div>
-                        ${getRecommendations(analysis, jobData, resumeData).map(rec => `
-                            <div class="recommendation-item">${rec}</div>
-                        `).join('')}
+                        </div>
                     </div>
-                </div>
-            `;
+
+                    ${candidate.error ? `
+                        <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 16px; color: #dc2626;">
+                            <i class="fas fa-exclamation-triangle"></i> Error: ${candidate.error}
+                        </div>
+                    ` : `
+                        <div class="candidate-details">
+                            <div class="detail-card">
+                                <h5><i class="fas fa-chart-bar"></i> Score Breakdown</h5>
+                                <div style="margin-bottom: 8px;">Skills: ${candidate.analysis.breakdown.skills || 0}%</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${candidate.analysis.breakdown.skills || 0}%"></div>
+                                </div>
+                                <div style="margin: 8px 0;">Keywords: ${candidate.analysis.breakdown.keywords || 0}%</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${candidate.analysis.breakdown.keywords || 0}%"></div>
+                                </div>
+                                <div style="margin: 8px 0;">Experience: ${candidate.analysis.breakdown.experience || 0}%</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${candidate.analysis.breakdown.experience || 0}%"></div>
+                                </div>
+                            </div>
+
+                            <div class="detail-card">
+                                <h5><i class="fas fa-check-circle"></i> Matched Skills</h5>
+                                <div class="skill-tags">
+                                    ${(candidate.analysis.matches.skills || []).slice(0, 6).map(skill => 
+                                        `<span class="skill-tag">${skill}</span>`
+                                    ).join('')}
+                                    ${(candidate.analysis.matches.skills || []).length > 6 ? 
+                                        `<span class="skill-tag">+${(candidate.analysis.matches.skills || []).length - 6} more</span>` : ''}
+                                </div>
+                            </div>
+
+                            <div class="detail-card">
+                                <h5><i class="fas fa-key"></i> Key Info</h5>
+                                <div style="margin-bottom: 8px;">
+                                    <strong>Experience:</strong> ${candidate.resumeData.experience} years
+                                </div>
+                                <div style="margin-bottom: 8px;">
+                                    <strong>Skills Found:</strong> ${candidate.resumeData.skills.length}
+                                </div>
+                                <div>
+                                    <strong>Keywords Matched:</strong> ${(candidate.analysis.matches.keywords || []).length}
+                                </div>
+                            </div>
+
+                            <div class="detail-card">
+                                <h5><i class="fas fa-lightbulb"></i> Top Keywords</h5>
+                                <div class="keyword-list">
+                                    ${(candidate.analysis.matches.keywords || []).slice(0, 8).map(keyword => 
+                                        `<span class="keyword-item">${keyword}</span>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `}
+                `;
+
+                candidatesGrid.appendChild(candidateCard);
+            });
+
+            // Generate comparison chart
+            const categories = ['Skills', 'Keywords', 'Experience', 'Education'];
+            categories.forEach(category => {
+                const chartItem = document.createElement('div');
+                chartItem.className = 'chart-item';
+                
+                const maxScore = Math.max(...candidates.map(c => c.analysis.breakdown[category.toLowerCase()] || 0));
+                
+                chartItem.innerHTML = `
+                    <div class="chart-label">${category} Comparison</div>
+                    <div class="chart-bar">
+                        ${candidates.slice(0, 5).map((candidate, index) => {
+                            const score = candidate.analysis.breakdown[category.toLowerCase()] || 0;
+                            const height = maxScore > 0 ? (score / maxScore) * 100 : 0;
+                            return `
+                                <div class="chart-fill" style="height: ${height}%; background: linear-gradient(180deg, ${
+                                    index === 0 ? '#ffd700' : 
+                                    index === 1 ? '#c0c0c0' : 
+                                    index === 2 ? '#cd7f32' : '#6366f1'
+                                }, ${
+                                    index === 0 ? '#ffed4e' : 
+                                    index === 1 ? '#e5e7eb' : 
+                                    index === 2 ? '#f59e0b' : '#8b5cf6'
+                                });">
+                                    ${score}%
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                
+                comparisonChart.appendChild(chartItem);
+            });
 
             resultsDiv.style.display = 'block';
             resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        function getScoreClass(score) {
-            if (score >= 70) return '';
-            if (score >= 50) return 'medium-match';
-            return 'low-match';
-        }
-
-        function getRecommendations(analysis, jobData, resumeData) {
-            const recommendations = [];
-
-            if (analysis.breakdown.skills < 70) {
-                const missingSkills = jobData.skills.skills.filter(skill =>
-                    !resumeData.skills.skills.some(rSkill =>
-                        rSkill.toLowerCase().includes(skill.toLowerCase()) ||
-                        skill.toLowerCase().includes(rSkill.toLowerCase())
-                    )
-                ).slice(0, 5);
-
-                if (missingSkills.length > 0) {
-                    recommendations.push(`<i class="fas fa-plus-circle"></i> <strong>Add Key Skills:</strong> ${missingSkills.join(', ')}`);
-                }
-            }
-
-            if (analysis.breakdown.keywords < 60) {
-                recommendations.push(`<i class="fas fa-edit"></i> <strong>Keyword Optimization:</strong> Include more specific terms from the job description throughout your resume`);
-            }
-
-            if (analysis.breakdown.experience < 80) {
-                recommendations.push(`<i class="fas fa-chart-line"></i> <strong>Experience Highlight:</strong> Emphasize relevant experience and quantify your achievements with metrics`);
-            }
-
-            if (analysis.total < 60) {
-                recommendations.push(`<i class="fas fa-sync-alt"></i> <strong>Resume Tailoring:</strong> Customize your resume more specifically for this role and industry`);
-            }
-
-            if (analysis.total >= 80) {
-                recommendations.push(`<i class="fas fa-trophy"></i> <strong>Excellent Work!</strong> Your resume is well-optimized. Consider applying with confidence!`);
-            } else if (analysis.total >= 70) {
-                recommendations.push(`<i class="fas fa-thumbs-up"></i> <strong>Good Foundation:</strong> Minor tweaks could push your score even higher`);
-            }
-
-            return recommendations.length > 0 ? recommendations : [
-                `<i class="fas fa-info-circle"></i> <strong>General Tip:</strong> Continue to align your resume with the specific requirements of each job application`
-            ];
-        }
-
         function showNotification(message, type = 'info') {
-            // Create notification element
             const notification = document.createElement('div');
             notification.style.cssText = `
                 position: fixed;
@@ -1244,7 +1371,6 @@
 
             document.body.appendChild(notification);
 
-            // Remove notification after 5 seconds
             setTimeout(() => {
                 notification.style.animation = 'slideOutRight 0.3s ease-in';
                 setTimeout(() => {
@@ -1253,21 +1379,104 @@
             }, 5000);
         }
 
-        // File upload feedback with enhanced styling
-        document.getElementById('resumeFile').addEventListener('change', function(e) {
-            const label = document.querySelector('.file-upload-label');
-            if (e.target.files.length > 0) {
-                const file = e.target.files[0];
+        // File upload handling
+        document.getElementById('resumeFiles').addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            const uploadedFilesDiv = document.getElementById('uploadedFiles');
+
+            files.forEach(file => {
                 const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                const fileName = file.name.replace(/\.[^/.]+$/, ""); // Remove extension for display name
+                
+                const resumeData = {
+                    name: fileName,
+                    file: file,
+                    size: fileSize
+                };
+
+                uploadedResumes.push(resumeData);
+
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <div class="file-info">
+                        <i class="fas fa-file-alt"></i>
+                        <div>
+                            <div class="file-name">${fileName}</div>
+                            <div class="file-size">${fileSize} MB</div>
+                        </div>
+                    </div>
+                    <button class="remove-file" onclick="removeFile(${uploadedResumes.length - 1})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+
+                uploadedFilesDiv.appendChild(fileItem);
+            });
+
+            // Update upload label
+            const label = document.querySelector('.file-upload-label');
+            if (uploadedResumes.length > 0) {
                 label.innerHTML = `
-                    <i class="fas fa-file-check" style="color: #10b981;"></i>
-                    <div class="upload-text" style="color: #10b981;">${file.name}</div>
-                    <div class="upload-subtext">File size: ${fileSize} MB</div>
+                    <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                    <div class="upload-text" style="color: #10b981;">${uploadedResumes.length} Resume(s) Uploaded</div>
+                    <div class="upload-subtext">Click to add more resumes</div>
                 `;
                 label.style.background = 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)';
                 label.style.borderColor = '#10b981';
             }
+
+            // Clear the input
+            e.target.value = '';
         });
+
+        function removeFile(index) {
+            uploadedResumes.splice(index, 1);
+            updateFileDisplay();
+        }
+
+        function updateFileDisplay() {
+            const uploadedFilesDiv = document.getElementById('uploadedFiles');
+            uploadedFilesDiv.innerHTML = '';
+
+            uploadedResumes.forEach((resume, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <div class="file-info">
+                        <i class="fas fa-file-alt"></i>
+                        <div>
+                            <div class="file-name">${resume.name}</div>
+                            <div class="file-size">${resume.size} MB</div>
+                        </div>
+                    </div>
+                    <button class="remove-file" onclick="removeFile(${index})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                uploadedFilesDiv.appendChild(fileItem);
+            });
+
+            // Update upload label
+            const label = document.querySelector('.file-upload-label');
+            if (uploadedResumes.length === 0) {
+                label.innerHTML = `
+                    <i class="fas fa-file-upload"></i>
+                    <div class="upload-text">Drop multiple resumes here or click to browse</div>
+                    <div class="upload-subtext">Supports PDF, Word, and Text files (Multiple selection)</div>
+                `;
+                label.style.background = 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)';
+                label.style.borderColor = '#cbd5e1';
+            } else {
+                label.innerHTML = `
+                    <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                    <div class="upload-text" style="color: #10b981;">${uploadedResumes.length} Resume(s) Uploaded</div>
+                    <div class="upload-subtext">Click to add more resumes</div>
+                `;
+                label.style.background = 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)';
+                label.style.borderColor = '#10b981';
+            }
+        }
 
         // Add CSS animations
         const style = document.createElement('style');
